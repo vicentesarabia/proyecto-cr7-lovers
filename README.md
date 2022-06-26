@@ -1,4 +1,4 @@
-# Tarea-2-CR7-lovers
+# proyecto-CR7-lovers
 ejecutar comando gcc main.c Map.c list.c -o test.exe luego ./test.exe
 para correcto funcionamiento del codigo primero siempre se tiene que utilizar la fucion 1 para que el programa
 tenga algo con que trabajar si quiere finalizar el proceso ponga 0,ingresar los nombres sin espacios ni comas ya que sino s podrian ocurrir problemas.
