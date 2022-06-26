@@ -16,7 +16,6 @@ typedef struct
 {
     char* idpis;
     char* texto;
-
 }pista;
 
 typedef struct{
@@ -25,17 +24,17 @@ typedef struct{
     short flagsZona;
 }zona;
 
-
 int is_equal_string(void * key1, void * key2) 
 {
     if(strcmp((char*)key1, (char*)key2)==0) return 1;
     return 0;
 }
+
 void mostrarinicio()
 {  //mostrar inicio del juego(de que trata)
     int a;
-
 }
+
 void definirzonas(Map* lugaresZonas)
 {
     //: 1.habitación principal, 2.banyo de invitados,cocina, living, garaje, habitación del hijo, patio trasero y sótano.
@@ -77,7 +76,6 @@ void definirpistas(Map*mapaPista)
         token=strtok(NULL,"\n");
         infopistas->texto=strdup(token);
         insertMap(mapaPista,infopistas->idpis,infopistas);
-    
     }
     /*
     pista* h=firstMap(mapaPista);
@@ -97,6 +95,7 @@ void iniciarpartida(personaje* usuario,Map* lugaresZona,Map*mapaPistas)
     definirzonas(lugaresZona);
     definirpistas(mapaPistas);
 }
+
 void mostrapersonajes(FILE* carga)
 {
     char *token;
@@ -118,6 +117,7 @@ void mostrapersonajes(FILE* carga)
     }
 
 }
+
 void cargardatos(FILE* carga,char persona,personaje *usuario)
 {
     char *token;
@@ -137,19 +137,15 @@ void cargardatos(FILE* carga,char persona,personaje *usuario)
             {
 
             }
-
         }  
     }
-    
-
-
 }
+
 void cargarpartida(personaje* usuario,Map* lugaresZona,Map*mapaPistas)
 {
     FILE*carga;
     char aux[100]="guardado.txt";
     carga=fopen(aux,"rt");
-    
     definirzonas(lugaresZona);
     definirpistas(mapaPistas);
     mostrapersonajes(carga);
@@ -157,7 +153,6 @@ void cargarpartida(personaje* usuario,Map* lugaresZona,Map*mapaPistas)
     fgets(aux,100,stdin);
     fseek(carga,0,SEEK_SET);
     cargardatos(carga,aux,usuario);
-
 }
 
 void menuInicial(personaje *usuario, Map* lugaresZona,Map*mapaPista)
@@ -167,7 +162,6 @@ void menuInicial(personaje *usuario, Map* lugaresZona,Map*mapaPista)
     printf("bienvenido a un juego ql malo\n");//inicio
     printf("menu\n 1.nueva partida\n 2.cargar partida\n 3.info del juego\n");
     scanf("%i",&opcion);
-    
     switch (opcion)
     {
     case 1 :
@@ -189,8 +183,6 @@ void menuInicial(personaje *usuario, Map* lugaresZona,Map*mapaPista)
     default:
         break;
     }
-    
-
 }
 
 int main()
