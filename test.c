@@ -53,7 +53,7 @@ void creacionGrafo(Map* grafo, FILE* zonas)
     }
 }
 
-void creacionPistas(FILE* pistas, Map* grafo)
+void insertpist(FILE* pistas, Map* grafo)
 {
     char aux[1024];
     char* token;
