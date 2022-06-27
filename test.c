@@ -6,29 +6,17 @@
 #include "Map.h"
 
 typedef struct{
-    char nombre[30];
-    List* caminos;
-}Node;
-
-typedef struct{
     char* nombre;
     int visitado;
-    int pista1;
-    int pista2;
+    List* pistas;
+    List* caminos;
 }habitacion;
 
 typedef struct{
     char* nombre;
     char* menu;
+    int vista;
 }pista;
-
-Node * create(void * data) {
-    Node * new = (Node *)malloc(sizeof(Node));
-    assert(new != NULL);
-    strcpy(new->nombre, data);
-    new->caminos = createList();
-    return new;
-}
 
 int is_equal_string(void * key1, void * key2) 
 {
@@ -36,10 +24,8 @@ int is_equal_string(void * key1, void * key2)
     return 0;
 }
 
-int main()
+void creacionGrafo(Map* grafo, FILE* zonas)
 {
-    FILE* zonas = fopen("zonas.txt", "rt");
-    Map* grafo = createMap(is_equal_string);
     char aux[1024];
     char* token;
     habitacion* principal;
@@ -49,27 +35,50 @@ int main()
         token = strtok(aux,"\n");
         hab->nombre = strdup(token);
         hab->visitado = 0;
-        hab->pista1 = 0;
-        hab->pista2 = 0;
-        List* lista = createList();
+        hab->pistas = createList();
+        hab->caminos = createList();
+        habitacion* res;
         if (strcmp(hab->nombre, "Living") == 0)
         {
-            insertMap(grafo, hab->nombre, lista);
+            insertMap(grafo, hab->nombre, hab);
             principal = hab;
         }
         else
         {
-            insertMap(grafo, hab->nombre, lista);
-            pushBack(searchMap(grafo, "Living"), hab);
-            pushBack(searchMap(grafo, hab->nombre), principal);
+            res = searchMap(grafo, "Living");
+            insertMap(grafo, hab->nombre, hab);
+            pushBack(res->caminos, hab);
+            res = searchMap(grafo, hab->nombre);
+            pushBack(res->caminos, principal);
         }
     }
-    habitacion* test = firstList(searchMap(grafo, "Living"));
-    while(test)
+}
+
+void creacionPistas(FILE* pistas, Map* grafo)
+{
+    char aux[1024];
+    char* token;
+    while(fgets(aux,1024,pistas)!=NULL)
     {
-        printf("%s\n", test->nombre);
-        test = nextList(searchMap(grafo, "Living"));
+        pista* p = (pista*) malloc (sizeof(pista));
+        token = strtok(aux,",");
+        p->nombre = strdup(token);
+        token = strtok(NULL, ",");
+        p->menu = strdup(token);
+        p->vista = 0;
+        token = strtok(NULL, "\n");
+        habitacion * res = searchMap(grafo, token);
+        pushBack(res->pistas, p);
     }
-    test = firstList(searchMap(grafo, "Sotano"));
-    printf("%s", test->nombre);
+}
+
+int main()
+{
+    FILE* creacion = fopen("zonas.txt", "rt");
+    Map* grafo = createMap(is_equal_string);
+    creacionGrafo(grafo, creacion);
+    fclose(creacion);
+    creacion = fopen("pistas.txt", "rt");
+    creacionPistas(creacion, grafo);
+    
 }
