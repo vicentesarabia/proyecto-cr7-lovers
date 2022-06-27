@@ -1,8 +1,0 @@
-1,habitacion principal,0
-2,banyo de invitados,0
-3,cocina,0
-4,living,0
-5,garaje,0
-6,habitacion del hijo,0
-7,patio trasero,0
-8,sotano,0
