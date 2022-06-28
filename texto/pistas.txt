@@ -1,0 +1,14 @@
+Cuchillo Faltante,Revisar utensilios,Cocina
+Ropa con Manchas Rojizas,Revisar Zona del Lavado,Cocina
+Seguro de Vida,Revisar Bajo la Cama,Habitacion Principal
+Pastillas contra la Depresion,Revisar Velador,Habitacion Principal
+N/A,Revisar Muebles,Banyo de Invitados
+Rastros de Sangre en el Desague,Revisar Ducha,Banyo de Invitados
+Llave Inglesa con Sangre y Cabellos Rubios,Revisar Caja de Herramientas,Garaje
+Botellas de Vino Vacias,Revisar Almacenaje,Garaje
+Cartas de Amor a la Sra. Buren,Revisar Muebles,Habitacion del Hijo
+Ropa Sucia del Hijo con Manchas Rojas,Revisar Bajo la Cama,Habitacion del Hijo
+Restos de Papeles Quemados,Revisar Asador,Patio Trasero
+Anillo de Compromiso de la Sra. Buren,Revisar Zona de Estar,Patio Trasero
+N/A,Revisar Muebles,Sotano
+Ropa Interior,Revisar Basureros,Sotano
