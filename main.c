@@ -95,7 +95,6 @@ void insertpist(Map* grafo)
         habitacion * res = searchMap(grafo, token);
         pushBack(res->pistas, p);
     }
-    printf("pistas cargadas");
 }
 
 void DefinirGrafo(Map* grafo)
@@ -129,8 +128,78 @@ void DefinirGrafo(Map* grafo)
     }
 
     fclose(zonas);
-    printf("pasa zona");
     insertpist(grafo);
+}
+
+void mostrarzonas(Map* grafo)
+{
+    habitacion* a=searchMap(grafo,"Living");
+    habitacion* test=(firstList(a->caminos));
+    printf("0 menu de opciones\n");
+    int num=1;
+    while(test!=NULL)
+    {
+        
+        printf("%i %s\n",num,test->nombre);
+        num++;
+        test=(nextList(a->caminos));
+    }
+}
+void menuOpciones(personaje* usuario,Map* grafo)
+{
+
+}
+void comienzojuego(personaje* usuario, Map* grafo)
+{
+    int ingreso;
+    usuario->energia=1;//acuerdate sacar esta variable
+    
+    while(usuario->energia>0)
+    {
+        printf("ingrese el numero de la zona a la cual quiere investigar\n");
+        mostrarzonas(grafo);
+        scanf("%i",&ingreso);
+        
+        switch (ingreso)
+        {
+        case 0:
+            printf("menu de opciones\n");
+            menuOpciones(usuario,grafo);
+            usuario->energia--;
+            break;
+        case 1:
+            usuario->energia--;
+            zonahabitacionpri(usuario,grafo);
+            break;
+        case 2:
+            usuario->energia--;
+            zonabaño(usuario,grafo);
+            break;
+        case 3:
+            usuario->energia--;
+            zonacocina(usuario,grafo);
+            break;
+        case 4:
+            usuario->energia--;
+            zonagaraje(usuario,grafo);
+            break;            
+        case 5:
+            usuario->energia--;
+            zonahabitacionhijo(usuario,grafo);
+            break;
+        case 6:
+            usuario->energia--;
+            zonapatio(usuario,grafo);
+            break;
+        case 7:
+            usuario->energia--;
+            zonasotano(usuario,grafo);
+            break;    
+        default:
+            printf("a ingresado un numero invalido\n");
+            break;
+        }
+    }
 }
 
 
@@ -141,6 +210,7 @@ void iniciarpartida(personaje* usuario,Map* lugaresZona)
     usuario->pistas=createList();
     usuario->pistasEspeciales=0;
     DefinirGrafo(lugaresZona);
+   
 }
 
 void mostrapersonajes(FILE* carga)
@@ -235,8 +305,9 @@ int main()
 {
     personaje *usuario=(personaje*)malloc(sizeof(personaje));
     Map* lugaresZona=createMap(is_equal_string);
-
     menuInicial(usuario,lugaresZona);
+    comienzojuego(usuario,lugaresZona);
+    printf("a");
     //resto de funciones
     
 }
