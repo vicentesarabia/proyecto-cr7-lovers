@@ -158,6 +158,17 @@ void mostrarpistas(personaje* usuario)
     }
 
 }
+void mostrarpistas(personaje* usuario)
+{
+    printf("listas encontradas\n");
+    pista* test=firstList(usuario->pistas);
+    while(test)
+    {
+        printf("%s\n",test->nombre);
+        printf("%s\n",test->info);
+    }
+
+}
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
@@ -177,11 +188,9 @@ void menuOpciones(personaje* usuario,Map* grafo)
         break;  
     default:
         break;
-    }
-
-    
-
+    } 
 }
+
 void comienzojuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
@@ -205,11 +214,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
             break;
         case 2:
             usuario->energia--;
-<<<<<<< HEAD
             //zonabanyo(usuario,grafo);
-=======
-            //zonabaño(usuario,grafo);
->>>>>>> 908560b205c0b265ed74041f50775a2859a66db2
             break;
         case 3:
             usuario->energia--;
