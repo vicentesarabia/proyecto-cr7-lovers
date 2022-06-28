@@ -127,7 +127,6 @@ void DefinirGrafo(Map* grafo)
             pushBack(res->caminos, principal);
         }
     }
-
     fclose(zonas);
     insertpist(grafo);
 }
@@ -138,9 +137,8 @@ void mostrarzonas(Map* grafo)
     habitacion* test=(firstList(a->caminos));
     printf("0 menu de opciones\n");
     int num=1;
-    while(test!=NULL)
+    while(test)
     {
-        
         printf("%i %s\n",num,test->nombre);
         num++;
         test=(nextList(a->caminos));
