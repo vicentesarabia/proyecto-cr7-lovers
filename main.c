@@ -12,8 +12,9 @@ typedef struct{
 }habitacion;
 
 typedef struct{
-    char* nombre;
-    char* menu;
+    char* nombre;//cuchillo
+    char* menu;//revisar utensilios 
+    char* info;
     int vista;
 }pista;
 
@@ -135,23 +136,68 @@ void mostrarzonas(Map* grafo)
 {
     habitacion* a=searchMap(grafo,"Living");
     habitacion* test=(firstList(a->caminos));
-    printf("0 menu de opciones\n");
+    printf("0-menu de opciones\n");
     int num=1;
     while(test)
     {
+<<<<<<< HEAD
         printf("%i %s\n",num,test->nombre);
+=======
+        
+        printf("%i-%s\n",num,test->nombre);
+>>>>>>> 1aa2c8161fa830b9fd3201aec6161d8e34cc2b31
         num++;
         test=(nextList(a->caminos));
     }
 }
-void menuOpciones(personaje* usuario,Map* grafo)
+void mostrarpistas(personaje* usuario)
 {
+    printf("listas encontradas\n");
+    pista* test=firstList(usuario->pistas);
+    while(test)
+    {
+        printf("%s\n",test->nombre);
+        printf("%s\n",test->info);
+    }
 
 }
+void mostrarpistas(personaje* usuario)
+{
+    printf("listas encontradas\n");
+    pista* test=firstList(usuario->pistas);
+    while(test)
+    {
+        printf("%s\n",test->nombre);
+        printf("%s\n",test->info);
+    }
+
+}
+void menuOpciones(personaje* usuario,Map* grafo)
+{
+    int opciones;
+    printf("seleccione la opcion\n");
+    printf("1-mostrar pistas\n2-Guardar partida\n3-Salir del juego\n");
+    scanf("%i",&opciones);
+    switch (opciones)
+    {
+    case 1:
+        mostrarpistas(usuario);
+        break;
+    case 2:
+        //guardarpartida(usuario,grafo);
+        break;  
+    case 3:
+        exit(0);
+        break;  
+    default:
+        break;
+    } 
+}
+
 void comienzojuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
-    usuario->energia=1;//acuerdate sacar esta variable
+    usuario->energia=2;//acuerdate sacar esta variable
     
     while(usuario->energia>0)
     {
@@ -164,7 +210,6 @@ void comienzojuego(personaje* usuario, Map* grafo)
         case 0:
             printf("menu de opciones\n");
             menuOpciones(usuario,grafo);
-            usuario->energia--;
             break;
         case 1:
             usuario->energia--;
@@ -172,7 +217,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
             break;
         case 2:
             usuario->energia--;
-            //zonabaño(usuario,grafo);
+            //zonabanyo(usuario,grafo);
             break;
         case 3:
             usuario->energia--;
@@ -204,7 +249,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
 
 void iniciarpartida(personaje* usuario,Map* lugaresZona)
 {
-    mostrarInicio(usuario->nombre);
+    //mostrarInicio(usuario->nombre); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     usuario->energia=8;
     usuario->pistas=createList();
     usuario->pistasEspeciales=0;
