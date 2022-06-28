@@ -117,12 +117,12 @@ void mostrarzonas(Map* grafo)
 {
     habitacion* a=searchMap(grafo,"Living");
     habitacion* test=(firstList(a->caminos));
-    printf("0 menu de opciones\n");
+    printf("0-menu de opciones\n");
     int num=1;
     while(test!=NULL)
     {
         
-        printf("%i %s\n",num,test->nombre);
+        printf("%i-%s\n",num,test->nombre);
         num++;
         test=(nextList(a->caminos));
     }
