@@ -2,7 +2,7 @@ corcho,Revisar utensilios,te encontraste con un destapacorcho con un corcho hume
 ropa con manchas,Revisar zona del lavado,encontraste unas prendas femeninas manchadas de rojo oculta en un canasto de ropa,Cocina
 documentos,Revisar bajo la cama,el documento tiene escrito condiciones sobre un seguro de vida pero esta manchado con tinta por lo que no se ven muchos detalles,Habitacion Principal
 pastillas antidepresivas,Revisar velador,encontraste un frasco con pastillas antidepresivas en un cajon,Habitacion Principal
-Nada interesante,Revisar muebles,Al revisar las los muebles del banyo no encuentras nada que llame tu atencion,Banyo de Invitados
+Nada interesante,Revisar muebles,Al revisar los muebles del banyo no encuentras nada que llame tu atencion,Banyo de Invitados
 Sangre en el desahue,Revisar ducha,Observas que en desague hay rastros de sangre,Banyo de Invitados
 llave manchada,Revisar caja de herramientas,la llave tenia rastros de sangre y cabellos rubios,Garaje
 Botellas de vino vacias,Revisar almacenaje,Al revisar el almacenaje encuentras varias botellas de vino vacias pero que fueron consumidas haca poco tiempo,Garaje
