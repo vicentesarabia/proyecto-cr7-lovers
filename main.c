@@ -24,7 +24,7 @@ typedef struct
     char* nombre;
     int energia;
     List* pistas;
-    int pistasEspeciales;
+    int pis;
 }personaje;
 
 
@@ -154,7 +154,13 @@ void mostrarpistas(personaje* usuario)
 
     printf("\nPistas encontradas\n\n");
     int num=0;
+    if(usuario->pis==0)
+    {
+        printf("no has encontrado ninguna pistas\n");
+        return;
+    }
     pista* test=firstList(usuario->pistas);
+    
     while(test)
     {
         num++;
@@ -211,6 +217,7 @@ void zonahabitacionpri(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -218,12 +225,14 @@ void zonahabitacionpri(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -231,6 +240,7 @@ void zonahabitacionpri(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         
         break;
 
@@ -268,6 +278,7 @@ void zonabanyo(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -275,12 +286,14 @@ void zonabanyo(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -288,6 +301,7 @@ void zonabanyo(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         
         break;
 
@@ -325,6 +339,7 @@ void zonacocina(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -332,12 +347,14 @@ void zonacocina(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -345,6 +362,7 @@ void zonacocina(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 3:
@@ -378,6 +396,7 @@ void zonagaraje(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -385,12 +404,14 @@ void zonagaraje(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -398,6 +419,7 @@ void zonagaraje(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 3:
@@ -431,6 +453,7 @@ void zonahabitacionhijo(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -438,12 +461,14 @@ void zonahabitacionhijo(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -451,6 +476,7 @@ void zonahabitacionhijo(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 3:
@@ -484,6 +510,7 @@ void zonapatio(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -497,6 +524,7 @@ void zonapatio(personaje* usuario, Map* grafo)
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -537,6 +565,7 @@ void zonasotano(personaje* usuario, Map* grafo)
         if(p->vista==0)
         {
             p->vista++;
+            usuario->pis++;
             printf("%s\n",p->info);
             pushBack(usuario->pistas,p);
 
@@ -544,12 +573,14 @@ void zonasotano(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 2:
         if(b->vista==0)
         {
             b->vista++;
+            usuario->pis++;
             printf("%s\n",b->info);
             pushBack(usuario->pistas,b);
 
@@ -557,6 +588,7 @@ void zonasotano(personaje* usuario, Map* grafo)
         else{
             printf("ya has revisado esta pista\n");
         }
+        return;
         break;
 
         case 3:
@@ -627,6 +659,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
     
     while(usuario->energia>0)
     {
+        printf("Te quedan %i horas de investigacion\n",usuario->energia);
         printf("Ingrese el numero de la zona a la cual quiere investigar\n");
         mostrarzonas(grafo);
         scanf("%i",&ingreso);
@@ -683,9 +716,9 @@ void comienzojuego(personaje* usuario, Map* grafo)
 void iniciarpartida(personaje* usuario,Map* lugaresZona)
 {
     //mostrarInicio(usuario->nombre); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    usuario->energia=8;
+    usuario->energia=7;
     usuario->pistas=createList();
-    usuario->pistasEspeciales=0;
+    usuario->pis=0;
     DefinirGrafo(lugaresZona);
 }
 
