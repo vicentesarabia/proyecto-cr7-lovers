@@ -40,7 +40,7 @@ void mostrarInicio(char* nombre)
     char *argv;
     int check = 0;
 
-    argv = "intro1.txt";
+    argv = "texto/intro1.txt";
     fichero = fopen (argv, "rb");
     while (fgets(c, 1024, fichero)) {
        printf ("%s", c);
@@ -51,7 +51,7 @@ void mostrarInicio(char* nombre)
     getchar();
    
     fclose (fichero);
-    argv = "intro2.txt";
+    argv = "texto/intro2.txt";
     fichero = fopen (argv, "rb");
     while (fgets(c, 1024, fichero)) {
        printf("%s", c);
@@ -65,13 +65,14 @@ void mostrarInicio(char* nombre)
             else if (strcmp(respuesta, "n") == 0)
             {
                 fclose (fichero);
-                argv = "malfinal1.txt";
+                argv = "texto/malfinal1.txt";
                 fichero = fopen (argv, "rb");
                 while (fgets(c, 1024, fichero)) {
                     printf("%s", c);
                     getchar();
                 }
             }
+            exit(1);
             break;
        }
     }
@@ -80,7 +81,7 @@ void mostrarInicio(char* nombre)
 
 void insertpist(Map* grafo)
 {
-    FILE* pistas = fopen("pistas.txt", "rt");
+    FILE* pistas = fopen("texto/pistas.txt", "rt");
     char aux[1024];
     char* token;
     while(fgets(aux,1024,pistas)!=NULL)
@@ -99,7 +100,7 @@ void insertpist(Map* grafo)
 
 void DefinirGrafo(Map* grafo)
 {
-    FILE* zonas = fopen("zonas.txt", "rt");
+    FILE* zonas = fopen("texto/zonas.txt", "rt");
     char aux[1024];
     char* token;
     habitacion* principal;
@@ -169,34 +170,34 @@ void comienzojuego(personaje* usuario, Map* grafo)
             break;
         case 1:
             usuario->energia--;
-            zonahabitacionpri(usuario,grafo);
+            //zonahabitacionpri(usuario,grafo);
             break;
         case 2:
             usuario->energia--;
-            zonabaño(usuario,grafo);
+            //zonabaño(usuario,grafo);
             break;
         case 3:
             usuario->energia--;
-            zonacocina(usuario,grafo);
+            //zonacocina(usuario,grafo);
             break;
         case 4:
             usuario->energia--;
-            zonagaraje(usuario,grafo);
+            //zonagaraje(usuario,grafo);
             break;            
         case 5:
             usuario->energia--;
-            zonahabitacionhijo(usuario,grafo);
+            //zonahabitacionhijo(usuario,grafo);
             break;
         case 6:
             usuario->energia--;
-            zonapatio(usuario,grafo);
+            //zonapatio(usuario,grafo);
             break;
         case 7:
             usuario->energia--;
-            zonasotano(usuario,grafo);
+            //zonasotano(usuario,grafo);
             break;    
         default:
-            printf("a ingresado un numero invalido\n");
+            printf("Ha ingresado un numero invalido\n");
             break;
         }
     }
@@ -210,7 +211,6 @@ void iniciarpartida(personaje* usuario,Map* lugaresZona)
     usuario->pistas=createList();
     usuario->pistasEspeciales=0;
     DefinirGrafo(lugaresZona);
-   
 }
 
 void mostrapersonajes(FILE* carga)
@@ -261,7 +261,7 @@ void cargardatos(FILE* carga,char persona,personaje *usuario)
 void cargarpartida(personaje* usuario,Map* lugaresZona)
 {
     FILE*carga;
-    char aux[100]="guardado.txt";
+    char aux[100]="texto/guardado.txt";
     carga=fopen(aux,"rt");
     DefinirGrafo(lugaresZona);
     mostrapersonajes(carga);
@@ -286,7 +286,6 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         fgets(aux,100,stdin);
         usuario->nombre=strdup(aux);
         iniciarpartida(usuario,lugaresZona);
-        
         break;
     case 2 :
         cargarpartida(usuario,lugaresZona);
