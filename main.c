@@ -85,7 +85,7 @@ void insertpist(Map* grafo)
     FILE* pistas = fopen("texto/pistas.txt", "rt");
     char aux[1024];
     char* token;
-    while(fgets(aux,1024,pistas)!=NULL)
+    while(fgets(aux,1024,pistas))
     {
         pista* p = (pista*) malloc (sizeof(pista));
         token = strtok(aux,",");
@@ -105,7 +105,7 @@ void DefinirGrafo(Map* grafo)
     char aux[1024];
     char* token;
     habitacion* principal;
-    while(fgets(aux,1024,zonas)!=NULL)
+    while(fgets(aux,1024,zonas))
     {
         habitacion* hab=(habitacion*) malloc (sizeof(habitacion));
         token = strtok(aux,"\n");
@@ -140,12 +140,12 @@ void mostrarzonas(Map* grafo)
     int num=1;
     while(test)
     {
-        
         printf("%i-%s\n",num,test->nombre);
         num++;
         test=(nextList(a->caminos));
     }
 }
+
 void mostrarpistas(personaje* usuario)
 {
     printf("listas encontradas\n");
@@ -155,7 +155,6 @@ void mostrarpistas(personaje* usuario)
         printf("%s\n",test->nombre);
         printf("%s\n",test->info);
     }
-
 }
 
 void menuOpciones(personaje* usuario,Map* grafo)
@@ -180,6 +179,35 @@ void menuOpciones(personaje* usuario,Map* grafo)
     } 
 }
 
+void zonahabitacionpri(personaje* usuario, Map* grafo)
+{
+    char zona[30] = "Habitacion Principal";
+    int cont = 0;
+    int input;
+    printf("Donde desea investigar?\n");
+    habitacion* a = searchMap(grafo, "Habitacion Principal");
+    pista* p = firstList(a->pistas);
+    printf("1- %s\n", p->menu);
+    cont++;
+    p = nextList(a->pistas);
+    printf("2- %s\n", p->menu);
+    printf("3- Volver al Living\n");
+    while (input > 3 || input < 1) scanf("%d", &input);
+    switch(input)
+    {
+        case 1:
+        printf("pista 1");
+        break;
+
+        case 2:
+        printf("pista 2");
+        break;
+
+        case 3:
+        break;
+    }
+}
+
 void comienzojuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
@@ -187,7 +215,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
     
     while(usuario->energia>0)
     {
-        printf("ingrese el numero de la zona a la cual quiere investigar\n");
+        printf("Ingrese el numero de la zona a la cual quiere investigar\n");
         mostrarzonas(grafo);
         scanf("%i",&ingreso);
         
@@ -199,7 +227,7 @@ void comienzojuego(personaje* usuario, Map* grafo)
             break;
         case 1:
             usuario->energia--;
-            //zonahabitacionpri(usuario,grafo);
+            zonahabitacionpri(usuario,grafo);
             break;
         case 2:
             usuario->energia--;
@@ -249,7 +277,7 @@ void mostrapersonajes(FILE* carga)
     char* aux2;
     printf("PERSONAJES DISPONIBLES\n"); 
     
-    while(fgets(aux,100,carga)!=NULL)
+    while(fgets(aux,100,carga))
     {
         token=strtok(aux,":");
         aux2=strdup(token);
