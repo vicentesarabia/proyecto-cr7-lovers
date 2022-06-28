@@ -93,6 +93,8 @@ void insertpist(Map* grafo)
         p->nombre = strdup(token);
         token = strtok(NULL, ",");
         p->menu = strdup(token);
+        token = strtok(NULL, ",");
+        p->info=strdup(token);
         p->vista = 0;
         token = strtok(NULL, "\n");
         habitacion * res = searchMap(grafo, token);
@@ -190,6 +192,7 @@ void zonahabitacionpri(personaje* usuario, Map* grafo)
     pista* p = firstList(a->pistas);
     printf("1- %s\n", p->menu);
     cont++;
+    printf("%s\n",p->info);
     p = nextList(a->pistas);
     printf("2- %s\n", p->menu);
     printf("3- Volver al Living\n");
