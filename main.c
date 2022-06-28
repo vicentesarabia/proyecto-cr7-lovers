@@ -140,12 +140,8 @@ void mostrarzonas(Map* grafo)
     int num=1;
     while(test)
     {
-<<<<<<< HEAD
-        printf("%i %s\n",num,test->nombre);
-=======
         
         printf("%i-%s\n",num,test->nombre);
->>>>>>> 1aa2c8161fa830b9fd3201aec6161d8e34cc2b31
         num++;
         test=(nextList(a->caminos));
     }
@@ -161,17 +157,7 @@ void mostrarpistas(personaje* usuario)
     }
 
 }
-void mostrarpistas(personaje* usuario)
-{
-    printf("listas encontradas\n");
-    pista* test=firstList(usuario->pistas);
-    while(test)
-    {
-        printf("%s\n",test->nombre);
-        printf("%s\n",test->info);
-    }
 
-}
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
