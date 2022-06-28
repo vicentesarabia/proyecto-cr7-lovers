@@ -27,7 +27,6 @@ typedef struct
     int pistasEspeciales;
 }personaje;
 
-
 int is_equal_string(void * key1, void * key2) 
 {
     if(strcmp((char*)key1, (char*)key2)==0) return 1;
@@ -45,7 +44,7 @@ void mostrarInicio(char* nombre)
     argv = "texto/intro1.txt";
     fichero = fopen (argv, "rb");
     while (fgets(c, 1024, fichero)) {
-       printf ("%s", c);
+       printf("%s", c);
        check++;
        if (check != 17) getchar();
     }
@@ -81,7 +80,7 @@ void mostrarInicio(char* nombre)
     fclose (fichero);
 }
 
-void insertpist(Map* grafo)
+void insertarPistas(Map* grafo)
 {
     FILE* pistas = fopen("texto/pistas.txt", "rt");
     char aux[1024];
@@ -102,7 +101,7 @@ void insertpist(Map* grafo)
     }
 }
 
-void DefinirGrafo(Map* grafo)
+void definirGrafo(Map* grafo)
 {
     FILE* zonas = fopen("texto/zonas.txt", "rt");
     char aux[1024];
@@ -132,33 +131,32 @@ void DefinirGrafo(Map* grafo)
         }
     }
     fclose(zonas);
-    insertpist(grafo);
+    insertarPistas(grafo);
 }
 
-void mostrarzonas(Map* grafo)
+void mostrarZonas(Map* grafo)
 {
-    habitacion* a=searchMap(grafo,"Living");
-    habitacion* test=(firstList(a->caminos));
-    printf("0-menu de opciones\n");
-    int num=1;
+    habitacion* a = searchMap(grafo,"Living");
+    habitacion* test = (firstList(a->caminos));
+    printf("0.- Menu de opciones\n");
+    int num = 1;
     while(test)
     {
-        printf("%i-%s\n",num,test->nombre);
+        printf("%i.- %s\n",num, test->nombre);
         num++;
-        test=(nextList(a->caminos));
+        test = (nextList(a->caminos));
     }
 }
 
-void mostrarpistas(personaje* usuario)
+void mostrarPistas(personaje* usuario)
 {
-
     printf("\nPistas encontradas\n\n");
-    int num=0;
-    pista* test=firstList(usuario->pistas);
+    int num = 0;
+    pista* test = firstList(usuario->pistas);
     while(test)
     {
         num++;
-        printf("%i.-%s,",num,test->nombre);
+        printf("%i.- %s,",num, test->nombre);
         printf("%s\n",test->info);
         test=nextList(usuario->pistas);
     }
@@ -168,16 +166,16 @@ void mostrarpistas(personaje* usuario)
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
-    printf("seleccione la opcion\n");
-    printf("1-mostrar pistas\n2-Guardar partida\n3-Salir del juego\n");
-    scanf("%i",&opciones);
+    printf("Seleccione la opcion\n");
+    printf("1.- Mostrar Pistas\n2.- Guardar Partida\n3.- Salir del Juego\n");
+    scanf("%i", &opciones);
     switch (opciones)
     {
     case 1:
-        mostrarpistas(usuario);
+        mostrarPistas(usuario);
         break;
     case 2:
-        //guardarpartida(usuario,grafo);
+        //guardarpartida(usuario, grafo);
         break;  
     case 3:
         exit(0);
@@ -187,133 +185,117 @@ void menuOpciones(personaje* usuario,Map* grafo)
     } 
 }
 
-void zonahabitacionpri(personaje* usuario, Map* grafo)
+void zonaHabitacionPri(personaje* usuario, Map* grafo)
 {
-  
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Habitacion Principal");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
-    
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
-    while(input!=3)
+    while(input != 3)
     {
-
         switch(input)
         {
         case 1:
-        
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
-
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
         }
-        else{
-            printf("ya has revisado esta pista\n");
+        else
+        {
+            printf("Ya has revisado esta pista.\n");
         }
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
-        
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
-
     }
 
 }
-void zonabanyo(personaje* usuario, Map* grafo)
+void zonaBanyo(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Banyo de Invitados");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
-
         switch(input)
         {
         case 1:
-        
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
-        
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
         
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
 
     }
 
 }
-void zonacocina(personaje* usuario, Map* grafo)
+void zonaCocina(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Cocina");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
@@ -322,51 +304,47 @@ void zonacocina(personaje* usuario, Map* grafo)
         {
         case 1:
         
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
     }
 }
-void zonagaraje(personaje* usuario, Map* grafo)
+void zonaGaraje(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Garaje");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
@@ -375,51 +353,47 @@ void zonagaraje(personaje* usuario, Map* grafo)
         {
         case 1:
         
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
     }
 }
-void zonahabitacionhijo(personaje* usuario, Map* grafo)
+void zonaHabitacionHijo(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Habitacion del Hijo");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
@@ -428,51 +402,47 @@ void zonahabitacionhijo(personaje* usuario, Map* grafo)
         {
         case 1:
         
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
     }
 }
-void zonapatio(personaje* usuario, Map* grafo)
+void zonaPatio(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Patio Trasero");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
@@ -480,52 +450,47 @@ void zonapatio(personaje* usuario, Map* grafo)
         switch(input)
         {
         case 1:
-        
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
 
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
     }
 }
-void zonasotano(personaje* usuario, Map* grafo)
+void zonaSotano(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Donde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Sotano");
     a->visitado++;
     pista* p = firstList(a->pistas);
-    printf("1- %s\n", p->menu);
+    printf("1.- %s\n", p->menu);
     pista* b = nextList(a->pistas);
-    printf("2- %s\n", b->menu);
-    printf("3- Volver al Living\n");
+    printf("2.- %s\n", b->menu);
+    printf("3.- Volver al Living\n");
     scanf("%d", &input);
     while(input!=3)
     {
@@ -533,71 +498,61 @@ void zonasotano(personaje* usuario, Map* grafo)
         switch(input)
         {
         case 1:
-        
-        if(p->vista==0)
+        if(p->vista == 0)
         {
             p->vista++;
-            printf("%s\n",p->info);
-            pushBack(usuario->pistas,p);
-
+            printf("%s\n", p->info);
+            pushBack(usuario->pistas, p);
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 2:
-        if(b->vista==0)
+        if(b->vista == 0)
         {
             b->vista++;
-            printf("%s\n",b->info);
-            pushBack(usuario->pistas,b);
-
+            printf("%s\n", b->info);
+            pushBack(usuario->pistas, b);
         }
-        else{
-            printf("ya has revisado esta pista\n");
-        }
+        else printf("Ya has revisado esta pista.\n");
         break;
 
         case 3:
         break;
         }
-        printf("1- %s\n", p->menu);
-        printf("2- %s\n", b->menu);
-        printf("3- Volver al Living\n");
+        printf("1.- %s\n", p->menu);
+        printf("2.- %s\n", b->menu);
+        printf("3.- Volver al Living\n");
         scanf("%d", &input);
     }
 }
 
-void finalrandom()
+void finalRandom()
 {
-    srand (time(NULL));
-    int numero =rand() % 51;
-    if(numero==15)
+    srand(time(NULL));
+    int numero = rand() % 51;
+    if(numero == 15)
     {
         printf("final random");
         exit(0);
     }
-
 }
-void finaljuego(personaje* usuario)
+
+void finalJuego(personaje* usuario)
 {
-    int eleccion=0;
+    int eleccion = 0;
     printf("texto que se te acabo el tiempo\n");
-    printf("quien cres que es asesino de los 3 sospechosos\n");
-    printf("0.-ver pistas\n1.-esposa de la victima\n2.-el hermano de la victima\n3.-la sirvienta de la casa\n");
-    
-    while(eleccion==0)
+    printf("Quien crees que es asesino de los 3 sospechosos?\n");
+    printf("0.- Ver pistas\n1.- Esposa de la victima\n2.- El hermano de la victima\n3.- La sirvienta de la casa\n");
+    while(eleccion == 0)
     {
-        scanf("%i",&eleccion);
-        
+        scanf("%i", &eleccion);
         switch (eleccion)
         {
         case 0:
-            mostrarpistas(usuario);
-            printf("quien cres que es asesino de los 3 sospechosos luego de ver tus pistas\n");
-            printf("1.-esposa de la victima\n2.-el hermano de la victima\n3.-la sirvienta de la casa\n");
-
+            mostrarPistas(usuario);
+            printf("Quien crees que es asesino de los 3 sospechosos luego de ver tus pistas?\n");
+            printf("1.- Esposa de la victima\n2.- El hermano de la victima\n3.- La sirvienta de la casa\n");
             break;
         case 1:
             printf("texto final esposa\n");
@@ -611,15 +566,11 @@ void finaljuego(personaje* usuario)
         default:
             break;
         }
-        
-
     }
-
     exit(0);
-
 }
 
-void comienzojuego(personaje* usuario, Map* grafo)
+void comienzoJuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
     int numero;
@@ -628,49 +579,49 @@ void comienzojuego(personaje* usuario, Map* grafo)
     while(usuario->energia>0)
     {
         printf("Ingrese el numero de la zona a la cual quiere investigar\n");
-        mostrarzonas(grafo);
+        mostrarZonas(grafo);
         scanf("%i",&ingreso);
         
         switch (ingreso)
         {
         case 0:
             printf("menu de opciones\n");
-            menuOpciones(usuario,grafo);
+            menuOpciones(usuario, grafo);
             break;
         case 1:
             usuario->energia--;
-            finalrandom();
-            zonahabitacionpri(usuario,grafo);
+            finalRandom();
+            zonaHabitacionPri(usuario, grafo);
             break;
         case 2:
             usuario->energia--;
-            finalrandom();
-            zonabanyo(usuario,grafo);
+            finalRandom();
+            zonaBanyo(usuario, grafo);
             break;
         case 3:
             usuario->energia--;
-            finalrandom();
-            zonacocina(usuario,grafo);
+            finalRandom();
+            zonaCocina(usuario, grafo);
             break;
         case 4:
             usuario->energia--;
-            finalrandom();
-            zonagaraje(usuario,grafo);
+            finalRandom();
+            zonaGaraje(usuario, grafo);
             break;            
         case 5:
             usuario->energia--;
-            finalrandom();
-            zonahabitacionhijo(usuario,grafo);
+            finalRandom();
+            zonaHabitacionHijo(usuario, grafo);
             break;
         case 6:
             usuario->energia--;
-            finalrandom();
-            zonapatio(usuario,grafo);
+            finalRandom();
+            zonaPatio(usuario, grafo);
             break;
         case 7:
             usuario->energia--;
-            finalrandom();
-            zonasotano(usuario,grafo);
+            finalRandom();
+            zonaSotano(usuario, grafo);
             break;    
         default:
             printf("Ha ingresado un numero invalido\n");
@@ -679,14 +630,13 @@ void comienzojuego(personaje* usuario, Map* grafo)
     }
 }
 
-
-void iniciarpartida(personaje* usuario,Map* lugaresZona)
+void iniciarPartida(personaje* usuario,Map* lugaresZona)
 {
     //mostrarInicio(usuario->nombre); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    usuario->energia=8;
-    usuario->pistas=createList();
-    usuario->pistasEspeciales=0;
-    DefinirGrafo(lugaresZona);
+    usuario->energia = 8;
+    usuario->pistas = createList();
+    usuario->pistasEspeciales = 0;
+    definirGrafo(lugaresZona);
 }
 
 void mostrapersonajes(FILE* carga)
@@ -702,14 +652,15 @@ void mostrapersonajes(FILE* carga)
         aux2=strdup(token);
         if(strcmp(aux2,"personaje")==0)
         {
-            printf("personaje: ");
-            token=strtok(NULL,"\n");
-            printf("%s\n",token);
+            printf("Personaje: ");
+            token=strtok(NULL, "\n");
+            printf("%s\n", token);
 
         }  
     }
 
 }
+
 /*
 void cargardatos(FILE* carga,char persona,personaje *usuario)
 {
@@ -734,45 +685,48 @@ void cargardatos(FILE* carga,char persona,personaje *usuario)
     }
 }
 */
-void cargarpartida(personaje* usuario,Map* lugaresZona)
+
+void cargarPartida(personaje* usuario,Map* lugaresZona)
 {
-    FILE*carga;
-    char aux[100]="texto/guardado.txt";
-    carga=fopen(aux,"rt");
-    DefinirGrafo(lugaresZona);
+    FILE* carga;
+    char aux[100] = "texto/guardado.txt";
+    carga = fopen(aux,"rt");
+    definirGrafo(lugaresZona);
     mostrapersonajes(carga);
     getchar();
     fgets(aux,100,stdin);
     fseek(carga,0,SEEK_SET);
     //cargardatos(carga,aux,usuario);
 }
-void mostrarinfo()
+
+void mostrarInfo()
 {
-    printf("se te va a dar una cierta cantidad de opciones en las cuales tienes que estar constantemente eligiendo segun el\n");
-    printf("numero que tenga la opcion,tambien para poder avanzar los dialogos al inicio y final del juego\n");
+    printf("Se te van a dar una cierta cantidad de opciones en las cuales tienes que estar constantemente eligiendo segun el\n");
+    printf("numero que tenga la opcion, tambien para poder avanzar los dialogos al inicio y final del juego\n");
 }
+
 void menuInicial(personaje *usuario, Map* lugaresZona)
 {
     char aux[101];
     int opcion;
-    printf("bienvenido a un juego\n");//inicio
-    printf("menu\n 1.nueva partida\n 2.cargar partida\n 3.info del juego\n");
-    scanf("%i",&opcion);
+    printf("Bienvenido a un juego\n");//inicio
+    printf("Menu\n 1.- Nueva Partida\n 2.- Cargar Partida\n 3.- Info del Juego\n");
+    scanf("%i", &opcion);
     switch (opcion)
     {
     case 1 :
         printf("Como te llamas?: \n");
         getchar();
         fgets(aux,100,stdin);
-        usuario->nombre=strdup(aux);
-        iniciarpartida(usuario,lugaresZona);
+        usuario->nombre = strdup(aux);
+        iniciarPartida(usuario, lugaresZona);
         break;
     case 2 :
-        cargarpartida(usuario,lugaresZona);
+        cargarPartida(usuario, lugaresZona);
         break;
     case 3 :
-        mostrarinfo();
-        menuInicial(usuario,lugaresZona);
+        mostrarInfo();
+        menuInicial(usuario, lugaresZona);
         break;
     case 4:
         exit(0);
@@ -784,18 +738,16 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
 
 int main()
 {
-    personaje *usuario=(personaje*)malloc(sizeof(personaje));
-    Map* lugaresZona=createMap(is_equal_string);
-    menuInicial(usuario,lugaresZona);
-    comienzojuego(usuario,lugaresZona);
-    if(usuario->energia==0)
+    personaje *usuario = (personaje*) malloc (sizeof(personaje));
+    Map* lugaresZona = createMap(is_equal_string);
+    menuInicial(usuario, lugaresZona);
+    comienzoJuego(usuario, lugaresZona);
+    if(usuario->energia == 0)
     {
-        finaljuego(usuario);
+        finalJuego(usuario);
         exit(0);
     }
     printf("a");
-    //resto de funciones
-    
 }
 
 
