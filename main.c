@@ -3,6 +3,7 @@
 #include <string.h>
 #include "list.h"
 #include "Map.h"
+#include <time.h>
 
 typedef struct{
     char* nombre;
@@ -208,10 +209,29 @@ void zonahabitacionpri(personaje* usuario, Map* grafo)
     }
 }
 
+void finalrandom()
+{
+    srand (time(NULL));
+    int numero =rand() % 51;
+    if(numero==15)
+    {
+        printf("final random");
+        exit(0);
+    }
+
+}
+void finaljuego()
+{
+    printf("final juego");
+    exit(0);
+
+}
+
 void comienzojuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
-    usuario->energia=2;//acuerdate sacar esta variable
+    int numero;
+    usuario->energia=7;//acuerdate sacar esta variable
     
     while(usuario->energia>0)
     {
@@ -227,30 +247,37 @@ void comienzojuego(personaje* usuario, Map* grafo)
             break;
         case 1:
             usuario->energia--;
+            finalrandom();
             zonahabitacionpri(usuario,grafo);
             break;
         case 2:
             usuario->energia--;
+            finalrandom();
             //zonabanyo(usuario,grafo);
             break;
         case 3:
             usuario->energia--;
+            finalrandom();
             //zonacocina(usuario,grafo);
             break;
         case 4:
             usuario->energia--;
+            finalrandom();
             //zonagaraje(usuario,grafo);
             break;            
         case 5:
             usuario->energia--;
+            finalrandom();
             //zonahabitacionhijo(usuario,grafo);
             break;
         case 6:
             usuario->energia--;
+            finalrandom();
             //zonapatio(usuario,grafo);
             break;
         case 7:
             usuario->energia--;
+            finalrandom();
             //zonasotano(usuario,grafo);
             break;    
         default:
@@ -327,12 +354,16 @@ void cargarpartida(personaje* usuario,Map* lugaresZona)
     fseek(carga,0,SEEK_SET);
     //cargardatos(carga,aux,usuario);
 }
-
+void mostrarinfo()
+{
+    printf("se te va a dar una cierta cantidad de opciones en las cuales tienes que estar constantemente eligiendo segun el\n");
+    printf("numero que tenga la opcion,tambien para poder avanzar los dialogos al inicio y final del juego\n");
+}
 void menuInicial(personaje *usuario, Map* lugaresZona)
 {
     char aux[101];
     int opcion;
-    printf("bienvenido a un juego ql malo\n");//inicio
+    printf("bienvenido a un juego\n");//inicio
     printf("menu\n 1.nueva partida\n 2.cargar partida\n 3.info del juego\n");
     scanf("%i",&opcion);
     switch (opcion)
@@ -348,11 +379,13 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         cargarpartida(usuario,lugaresZona);
         break;
     case 3 :
-        printf("weas friki de info");
-        //mostrarinfo();
+        mostrarinfo();
+        menuInicial(usuario,lugaresZona);
         break;
-    
+    case 4:
+        exit(0);
     default:
+        exit(0);
         break;
     }
 }
@@ -363,6 +396,11 @@ int main()
     Map* lugaresZona=createMap(is_equal_string);
     menuInicial(usuario,lugaresZona);
     comienzojuego(usuario,lugaresZona);
+    if(usuario->energia==0)
+    {
+        finaljuego();
+        exit(0);
+    }
     printf("a");
     //resto de funciones
     
