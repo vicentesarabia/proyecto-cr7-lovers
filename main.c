@@ -77,7 +77,6 @@ void insertpist(Map* grafo)
         habitacion * res = searchMap(grafo, token);
         pushBack(res->pistas, p);
     }
-    printf("pistas cargadas");
 }
 
 void DefinirGrafo(Map* grafo)
@@ -111,8 +110,41 @@ void DefinirGrafo(Map* grafo)
     }
 
     fclose(zonas);
-    printf("pasa zona");
     insertpist(grafo);
+}
+
+void mostrarzonas(Map* grafo)
+{
+    habitacion* a=searchMap(grafo,"Living");
+    habitacion* test=(firstList(a->caminos));
+    int num=1;
+    while(test!=NULL)
+    {
+        
+        printf("%i %s\n",num,test->nombre);
+        num++;
+        test=(nextList(a->caminos));
+    }
+}
+void comienzojuego(personaje* usuario, Map* grafo)
+{
+    int ingreso;
+    while(usuario->energia!=0)
+    {
+        printf("ingrese el numero de la zona a la cual quiere investigar\n");
+        mostrarzonas(grafo);
+        scanf("%i",ingreso);
+        
+        switch (ingreso)
+        {
+        case 1:
+            printf("nada");
+            break;
+        
+        default:
+            break;
+        }
+    }
 }
 
 
@@ -123,6 +155,7 @@ void iniciarpartida(personaje* usuario,Map* lugaresZona)
     usuario->pistas=createList();
     usuario->pistasEspeciales=0;
     DefinirGrafo(lugaresZona);
+    comienzojuego(usuario,lugaresZona);
 }
 
 void mostrapersonajes(FILE* carga)
@@ -217,7 +250,6 @@ int main()
 {
     personaje *usuario=(personaje*)malloc(sizeof(personaje));
     Map* lugaresZona=createMap(is_equal_string);
-
     menuInicial(usuario,lugaresZona);
     //resto de funciones
     
