@@ -580,9 +580,41 @@ void finalrandom()
     }
 
 }
-void finaljuego()
+void finaljuego(personaje* usuario)
 {
-    printf("final juego");
+    int eleccion=0;
+    printf("texto que se te acabo el tiempo\n");
+    printf("quien cres que es asesino de los 3 sospechosos\n");
+    printf("0.-ver pistas\n1.-esposa de la victima\n2.-el hermano de la victima\n3.-la sirvienta de la casa\n");
+    
+    while(eleccion==0)
+    {
+        scanf("%i",&eleccion);
+        
+        switch (eleccion)
+        {
+        case 0:
+            mostrarpistas(usuario);
+            printf("quien cres que es asesino de los 3 sospechosos luego de ver tus pistas\n");
+            printf("1.-esposa de la victima\n2.-el hermano de la victima\n3.-la sirvienta de la casa\n");
+
+            break;
+        case 1:
+            printf("texto final esposa\n");
+            break;
+        case 2:
+            printf("texto final hermano\n");
+            break;
+        case 3:
+            printf("texto final sirvienta\n"); 
+            break;   
+        default:
+            break;
+        }
+        
+
+    }
+
     exit(0);
 
 }
@@ -758,7 +790,7 @@ int main()
     comienzojuego(usuario,lugaresZona);
     if(usuario->energia==0)
     {
-        finaljuego();
+        finaljuego(usuario);
         exit(0);
     }
     printf("a");
