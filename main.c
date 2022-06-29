@@ -669,7 +669,8 @@ void final(int eleccion)
     fichero = fopen(argv, "rb");
     while (fgets(c, 1024, fichero)) printf("%s", c);
 }
-
+/*------------------Funcion finaljuego---------------------------*/
+//funcion que se activa cuando el jugador se queda sin energia
 void finalJuego(personaje* usuario)
 {
     int eleccion = 0, chk = 0;
@@ -690,19 +691,23 @@ void finalJuego(personaje* usuario)
     }
     exit(0);
 }
-
+/*------------Funcion comienzojuego---------------*/
+//funcion inicial o base del juego, por aqui pasan todas las opciones
+//y funciones del juego
 void comienzoJuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
     int numero;
     usuario->energia = 7;//acuerdate sacar esta variable
-    
+    //while que se rompe cuando el usuario se queda sin energia en el juego por lo que se activa el final del juego
     while(usuario->energia > 0)
     {
         printf("Te quedan %i horas de investigación\n", usuario->energia);
         printf("Ingrese el número de la zona a la cual quiere investigar\n");
         mostrarZonas(grafo);
         scanf("%i", &ingreso);
+        //cada opcion de este switch es una zona diferente restandole energia cada vez 
+        //que el usuario ingresa a una zona y activando la funcion final random
         switch (ingreso)
         {
         case 0:
@@ -712,7 +717,7 @@ void comienzoJuego(personaje* usuario, Map* grafo)
         case 1:
             usuario->energia--;
             finalRandom();
-            zonaHabitacionPri(usuario, grafo);
+            zonaHabitacionPri(usuario, grafo);//(vamos a comentar solo una funcion de las zonas porque tienen todas la misma estructura dentro)
             break;
         case 2:
             usuario->energia--;
@@ -750,16 +755,19 @@ void comienzoJuego(personaje* usuario, Map* grafo)
         }
     }
 }
-
+/*-------------------Funcion iniciarpartida---------------*/
+//funcion que inicializa todos los datos que seran utilizados a lo largo del juego
+//como el grafo de zonas y los datos del personaje
 void iniciarPartida(personaje* usuario,Map* lugaresZona)
 {
-    //mostrarInicio(usuario->nombre); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //mostrarInicio(usuario->nombre); //descomentar funcion para mostrar historia
     usuario->energia = 7;
     usuario->pistas = createList();
     usuario->pis = 0;
     definirGrafo(lugaresZona);
 }
-
+/*--------------Funcion mostrarpersonajes-----------*/
+//funcion que muestra los personajes disponibles para poder cargar la partida
 void mostrarPersonajes(FILE* carga)
 {
     char *token;
@@ -805,7 +813,8 @@ void cargardatos(FILE* carga,char persona,personaje *usuario)
     }
 }
 */
-
+/*--------------Funcion cargarpartida(no funciona)----------*/
+//funcion que carga los datos del juego de un previo juego
 void cargarPartida(personaje* usuario,Map* lugaresZona)
 {
     FILE* carga;
@@ -818,13 +827,18 @@ void cargarPartida(personaje* usuario,Map* lugaresZona)
     fseek(carga,0,SEEK_SET);
     //cargardatos(carga,aux,usuario);
 }
-
+/*---------------------Funcion mostrar info------------------*/
+//funcion que muestra como jugar al juego, la opciones que tiene y como saltar 
+//los comentarios del juego
 void mostrarInfo()
 {
     printf("Se te van a dar una cierta cantidad de opciones en las cuales tienes que estar constantemente eligiendo segun el\n");
     printf("número que tenga la opción, tambien para poder avanzar los diálogos al inicio y final del juego\n");
 }
-
+/*------------------Funcion menu principal------------------*/
+//funcion que contienen las opciones de nueva partida, cargar partida(no funciona)
+//ver info, al ingresar a una nueva partida,te pedira que ingreses tu nombre para 
+//poder hacer juego con el resto del juego
 void menuInicial(personaje *usuario, Map* lugaresZona)
 {
     char aux[101];
@@ -846,8 +860,8 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         cargarPartida(usuario, lugaresZona);
         break;
     case 3 :
-        mostrarInfo();
-        menuInicial(usuario, lugaresZona);
+        mostrarInfo();//mostrar informacion de como jugar el juego
+        menuInicial(usuario, lugaresZona);//volver a elegir una opcion 
         break;
     case 4:
         exit(0);
@@ -856,11 +870,13 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         break;
     }
 }
-
+/*--------------------Funcion main-----------------------*/
+//funcion que contiene todas las funciones del juego
 int main()
 {
-    personaje *usuario = (personaje*) malloc (sizeof(personaje));
-    Map* lugaresZona = createMap(is_equal_string);
+    personaje *usuario = (personaje*) malloc (sizeof(personaje));//tipo de dato que guarda los datos del juegador a lo largo de la partida
+    Map* lugaresZona = createMap(is_equal_string);//grafo con las zonas del juego
+    menuInicial(usuario, lugaresZona);
     menuInicial(usuario, lugaresZona);
     comienzoJuego(usuario, lugaresZona);
     if(usuario->energia == 0)
