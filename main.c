@@ -177,34 +177,78 @@ void mostrarPistas(personaje* usuario)
 }
 void guardarpartida(personaje* usuario, Map*grafo)
 {
-    FILE*carga=fopen("texto/datos guardado.txt", "rt");
+    FILE*carga = fopen("texto/datos guardado.txt", "r+");
     char *token;
     char aux[1024];
+    pista* pistas;
     char* aux2; 
     while(fgets(aux,1024,carga))
     {
-        token=strtok(aux,":");
-        aux2=strdup(token);
-        if(strcmp(aux2,"nombre")==0)
+        token = strtok(aux,":");
+        aux2 = strdup(token);
+        if(strcmp(aux2,"nombre") == 0)
         {
-            token=strtok(NULL,"\n");
-            if(strcmp(usuario->nombre,token)==0)
+            token = strtok(NULL,"\n");
+            printf("%s-----", token);
+            printf("%s\n", usuario->nombre);
+            if(strcmp(usuario->nombre, token)==0)
             {
-                while(strcmp(token,"nombre"))
+                printf("a\n");
+                fgets(aux,1024,carga);
+                fprintf(carga, "energia:%s\n", usuario->energia);
+                fprintf(carga, "pis:%s\n", usuario->pis);
+                pistas = firstList(usuario->pistas);
+                fprintf(carga, "pistas:");
+                while(pistas)
                 {
-                    
+                    fprintf(carga, "%s,", pistas->nombre);
+                    pistas=nextList(usuario->pistas);
                 }
-                    
+                fprintf(carga, "\n");
+                habitacion* a = searchMap(grafo, "Living");
+                habitacion* test = (firstList(a->caminos));
+                fprintf(carga, "habitaciones:");
+                int num = 1;
+                while(test)
+                {
+                    fprintf(carga,"%s,",test->visitado);
+                    num++;
+                    test = (nextList(a->caminos));
+                } 
+                fprintf(carga, "\n");
+                fclose(carga);
+                return;
             }
         }  
     }
-
-
-
-
-
-
+    fprintf(carga,"\n");
+    fprintf(carga, "nombre:%s", usuario->nombre);
+    fprintf(carga, "energia:%i\n", usuario->energia);
+    fprintf(carga, "pis:%i\n", usuario->pis);
+    if(usuario->pis != 0)
+    {
+        pistas = firstList(usuario->pistas);
+        fprintf(carga, "pistas:");
+        while(pistas)
+        {
+            fprintf(carga, "%s,", pistas->nombre);
+            pistas=nextList(usuario->pistas);
+        }
+    }
+    else fprintf(carga, "pistas:0");
+    fprintf(carga, "\n");
+    habitacion* a = searchMap(grafo, "Living");
+    habitacion* test = (firstList(a->caminos));
+    fprintf(carga, "habitaciones:");
+    while(test)
+    {
+        fprintf(carga,"%i,",test->visitado);
+        test = (nextList(a->caminos));
+    } 
+    fprintf(carga, "\n");
+    fclose(carga);
 }
+
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
@@ -217,7 +261,7 @@ void menuOpciones(personaje* usuario,Map* grafo)
         mostrarPistas(usuario);
         break;
     case 2:
-        //guardarpartida(usuario,grafo);
+        guardarpartida(usuario,grafo);
         break;  
     case 3:
         exit(0);
@@ -243,37 +287,33 @@ void zonaHabitacionPri(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else
-        {
-            printf("Ya has revisado esta pista.\n");
-        }
-        return;
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista.\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
-        }
+            case 3:
+            break;
+            }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
         printf("3.- Volver al Living\n");
@@ -297,32 +337,32 @@ void zonaBanyo(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -346,33 +386,33 @@ void zonaCocina(personaje* usuario, Map* grafo)
     while(input != 3)
     {
         switch(input)
-        {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            {
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -397,32 +437,32 @@ void zonaGaraje(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -447,32 +487,32 @@ void zonaHabitacionHijo(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -497,30 +537,32 @@ void zonaPatio(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista.\n");
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista.\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista.\n");
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista.\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -545,32 +587,32 @@ void zonaSotano(personaje* usuario, Map* grafo)
     {
         switch(input)
         {
-        case 1:
-        if(p->vista == 0)
-        {
-            p->vista++;
-            usuario->pis++;
-            printf("%s\n", p->info);
-            pushBack(usuario->pistas, p);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 1:
+            if(p->vista == 0)
+            {
+                p->vista++;
+                usuario->pis++;
+                printf("%s\n", p->info);
+                pushBack(usuario->pistas, p);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 2:
-        if(b->vista == 0)
-        {
-            b->vista++;
-            usuario->pis++;
-            printf("%s\n", b->info);
-            pushBack(usuario->pistas, b);
-        }
-        else printf("Ya has revisado esta pista\n");
-        return;
-        break;
+            case 2:
+            if(b->vista == 0)
+            {
+                b->vista++;
+                usuario->pis++;
+                printf("%s\n", b->info);
+                pushBack(usuario->pistas, b);
+            }
+            else printf("Ya has revisado esta pista\n");
+            return;
+            break;
 
-        case 3:
-        break;
+            case 3:
+            break;
         }
         printf("1.- %s\n", p->menu);
         printf("2.- %s\n", b->menu);
@@ -579,6 +621,11 @@ void zonaSotano(personaje* usuario, Map* grafo)
     }
 }
 
+void zona(personaje* usuario, Map* grafo, int eleccion)
+{
+    int input;
+    printf("Donde desea investigar?\n");
+}
 void finalRandom()
 {
     srand(time(NULL));
@@ -811,7 +858,7 @@ int main()
         finalJuego(usuario);
         exit(0);
     }
-    printf("a");
+    exit(0);
 }
 
 
