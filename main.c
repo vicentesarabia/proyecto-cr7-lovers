@@ -177,7 +177,7 @@ void mostrarPistas(personaje* usuario)
 }
 void guardarpartida(personaje* usuario, Map*grafo)
 {
-    FILE*carga = fopen("texto/datos guardado.txt", "r+");
+    FILE* carga = fopen("texto/datos guardado.txt", "r+");
     char *token;
     char aux[1024];
     pista* pistas;
@@ -191,38 +191,41 @@ void guardarpartida(personaje* usuario, Map*grafo)
             token = strtok(NULL,"\n");
             printf("%s-----", token);
             printf("%s\n", usuario->nombre);
-            if(strcmp(usuario->nombre, token)==0)
+            int length = -(strlen(usuario->nombre) + 9);
+            if(strcmp(usuario->nombre, token) == 0)
             {
-                printf("a\n");
-                fgets(aux,1024,carga);
-                fprintf(carga, "energia:%s\n", usuario->energia);
-                fprintf(carga, "pis:%s\n", usuario->pis);
-                pistas = firstList(usuario->pistas);
-                fprintf(carga, "pistas:");
-                while(pistas)
+                fseek(carga, length, SEEK_CUR);
+                fprintf(carga, "nombre:%s\n", usuario->nombre);
+                fprintf(carga, "energia:");
+                fprintf(carga, "%i\n", usuario->energia);
+                fprintf(carga, "pis:%i\n", usuario->pis);
+                if(usuario->pis != 0)
                 {
-                    fprintf(carga, "%s,", pistas->nombre);
-                    pistas=nextList(usuario->pistas);
+                    pistas = firstList(usuario->pistas);
+                    fprintf(carga, "pistas:");
+                    while(pistas)
+                    {
+                        fprintf(carga, "%s,", pistas->nombre);
+                        pistas = nextList(usuario->pistas);
+                    }
                 }
+                else fprintf(carga, "pistas:0");
                 fprintf(carga, "\n");
                 habitacion* a = searchMap(grafo, "Living");
                 habitacion* test = (firstList(a->caminos));
                 fprintf(carga, "habitaciones:");
-                int num = 1;
                 while(test)
                 {
-                    fprintf(carga,"%s,",test->visitado);
-                    num++;
+                    fprintf(carga,"%i,",test->visitado);
                     test = (nextList(a->caminos));
                 } 
-                fprintf(carga, "\n");
                 fclose(carga);
                 return;
             }
         }  
     }
     fprintf(carga,"\n");
-    fprintf(carga, "nombre:%s", usuario->nombre);
+    fprintf(carga, "nombre:%s\n", usuario->nombre);
     fprintf(carga, "energia:%i\n", usuario->energia);
     fprintf(carga, "pis:%i\n", usuario->pis);
     if(usuario->pis != 0)
@@ -626,6 +629,7 @@ void zona(personaje* usuario, Map* grafo, int eleccion)
     int input;
     printf("Donde desea investigar?\n");
 }
+
 void finalRandom()
 {
     srand(time(NULL));
@@ -699,7 +703,6 @@ void comienzoJuego(personaje* usuario, Map* grafo)
         printf("Ingrese el número de la zona a la cual quiere investigar\n");
         mostrarZonas(grafo);
         scanf("%i", &ingreso);
-        
         switch (ingreso)
         {
         case 0:
@@ -836,6 +839,7 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         getchar();
         fgets(aux,100,stdin);
         usuario->nombre = strdup(aux);
+        usuario->nombre[strcspn(usuario->nombre, "\n" )] = '\0';
         iniciarPartida(usuario, lugaresZona);
         break;
     case 2 :
