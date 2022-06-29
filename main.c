@@ -170,7 +170,36 @@ void mostrarpistas(personaje* usuario)
     }
     printf("\n");
 }
+void guardarpartida(personaje* usuario, Map*grafo)
+{
+    FILE*carga=fopen("texto/datos guardado.txt", "rt");
+    char *token;
+    char aux[1024];
+    char* aux2; 
+    while(fgets(aux,1024,carga))
+    {
+        token=strtok(aux,":");
+        aux2=strdup(token);
+        if(strcmp(aux2,"nombre")==0)
+        {
+            token=strtok(NULL,"\n");
+            if(strcmp(usuario->nombre,token)==0)
+            {
+                while(strcmp(token,"nombre"))
+                {
+                    
+                }
+                    
+            }
+        }  
+    }
 
+
+
+
+
+
+}
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
@@ -183,7 +212,7 @@ void menuOpciones(personaje* usuario,Map* grafo)
         mostrarpistas(usuario);
         break;
     case 2:
-        //guardarpartida(usuario,grafo);
+        guardarpartida(usuario,grafo);
         break;  
     case 3:
         exit(0);
@@ -725,11 +754,11 @@ void iniciarpartida(personaje* usuario,Map* lugaresZona)
 void mostrapersonajes(FILE* carga)
 {
     char *token;
-    char aux[100];
+    char aux[1024];
     char* aux2;
     printf("PERSONAJES DISPONIBLES\n"); 
     
-    while(fgets(aux,100,carga))
+    while(fgets(aux,1024,carga))
     {
         token=strtok(aux,":");
         aux2=strdup(token);
