@@ -5,6 +5,8 @@ tenga algo con que trabajar si quiere finalizar el proceso ponga 0, ingresar los
 Los prints contienen tildes y ñs, lineas de comandos no van a mostrar bien estos carácteres a no ser que el dispositivo utilize UTF-8 Unicode.
 Linux no debería tener problemas, en Windows se tendrá que activar el soporte de UTF-8 en las opciones de región.
 
+Funcion cargarPartida no se puso implementar por falta de tiempo.
+
 Casos que mejorar:
 No hacer otra vez la tarea los últimos 3 días, Carlos arreglar el problema con el GitHub ya que tiene problemas con el VSCode
 
