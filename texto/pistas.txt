@@ -4,7 +4,7 @@ Documentos,Revisar bajo la cama,El documento tiene escrito condiciones sobre un 
 Pastillas Antidepresivas,Revisar velador,Encontraste un frasco con pastillas antidepresivas en un cajon.,Habitacion Principal
 Nada interesante,Revisar muebles,Al revisar los muebles del banyo no encuentras nada que llame tu atencion...,Banyo de Invitados
 Sangre en el desague,Revisar ducha,Observas que en el desague hay rastros de sangre.,Banyo de Invitados
-Llave manchada,Revisar caja de herramientas,La llave tenia rastros de sangre y cabellos rubios.,Garaje
+Llave manchada,Revisar caja de herramientas,La llave tenia rastros de sangre y cabellos rubios...,Garaje
 Botellas de vino vacias,Revisar almacenaje,Al revisar el almacenaje encuentras varias botellas de vino vacias pero que fueron consumidas haca poco tiempo,Garaje
 Cartas,revisar muebles,Son cartas de amor sin remitente que van dirijidas a la Sra.Buren que estaban en una repisa que al parecer el hijo no alcanza,Habitacion del Hijo
 Ropa sucia,Revisar bajo la cama,Encontraste ropa sucia del hijo con manchas rojas,Habitacion del Hijo
