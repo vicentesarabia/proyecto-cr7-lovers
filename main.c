@@ -273,16 +273,19 @@ void menuOpciones(personaje* usuario,Map* grafo)
         break;
     } 
 }
-
+/*---------Funcion zonahabitacionpri----------------------*/
+//funcion que ingresa a la zona  habitacion principal y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaHabitacionPri(personaje* usuario, Map* grafo)
 {
     int input;
     printf("Dónde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Habitacion Principal");
-    a->visitado++;
-    pista* p = firstList(a->pistas);
-    printf("1.- %s\n", p->menu);
-    pista* b = nextList(a->pistas);
+    a->visitado++;//grafo que conecta con el nodo habitacion principal el cual tiene unido las dos pistas de la zona
+    pista* p = firstList(a->pistas);//pista uno
+    printf("1.- %s\n", p->menu);//accion de pista
+    pista* b = nextList(a->pistas);//pista uno
     printf("2.- %s\n", b->menu);
     printf("3.- Volver al Living\n");
     scanf("%d", &input);
@@ -296,7 +299,7 @@ void zonaHabitacionPri(personaje* usuario, Map* grafo)
                 p->vista++;
                 usuario->pis++;
                 printf("%s\n", p->info);
-                pushBack(usuario->pistas, p);
+                pushBack(usuario->pistas, p);//ingresando a la lista del tipo personaje la pista
             }
             else printf("Ya has revisado esta pista.\n");
             return;
@@ -323,7 +326,10 @@ void zonaHabitacionPri(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonabanyo----------------------*/
+//funcion que ingresa a la zona  del banyo y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaBanyo(personaje* usuario, Map* grafo)
 {
     int input;
@@ -373,7 +379,9 @@ void zonaBanyo(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonacocina----------------------*/
+//funcion que ingresa a la zona cocina y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
 void zonaCocina(personaje* usuario, Map* grafo)
 {
     int input;
@@ -423,7 +431,10 @@ void zonaCocina(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonagaraje----------------------*/
+//funcion que ingresa a la zona garaje y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaGaraje(personaje* usuario, Map* grafo)
 {
     int input;
@@ -473,7 +484,10 @@ void zonaGaraje(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonashabitacionhijo----------------------*/
+//funcion que ingresa a la zona habitacion del hijo y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaHabitacionHijo(personaje* usuario, Map* grafo)
 {
     int input;
@@ -523,7 +537,10 @@ void zonaHabitacionHijo(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonapatioo----------------------*/
+//funcion que ingresa a la zona del patio trasero y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaPatio(personaje* usuario, Map* grafo)
 {
     int input;
@@ -573,7 +590,10 @@ void zonaPatio(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
+/*---------Funcion zonasotano----------------------*/
+//funcion que ingresa a la zona sotano y permite realizar
+//la opcion de investigar los lugares o regresar a la zona principal
+//estructura comentada en zonahabitacionpri ua que son todas identicas
 void zonaSotano(personaje* usuario, Map* grafo)
 {
     int input;
@@ -629,11 +649,12 @@ void zona(personaje* usuario, Map* grafo, int eleccion)
     int input;
     printf("Donde desea investigar?\n");
 }
-
+/*----------------Funcion finalrandom------------*/
+//funcion que da un final totalmente al alzar
 void finalRandom()
 {
     srand(time(NULL));
-    int numero = rand() % 51;
+    int numero = rand() % 51;//numero del 0 al 50 al azar
     if(numero == 15)
     {
         FILE *fichero;
@@ -646,7 +667,8 @@ void finalRandom()
         exit(0);
     }
 }
-
+/*-------------Funcion final------------------*/
+//funcion que dependiendo de la eleccion te da un tipo de final diferente
 void final(int eleccion)
 {
     FILE *fichero;
@@ -667,7 +689,7 @@ void final(int eleccion)
         break;
     }
     fichero = fopen(argv, "rb");
-    while (fgets(c, 1024, fichero)) printf("%s", c);
+    while (fgets(c, 1024, fichero)) printf("%s", c);//funcion que muestra los textos apretando ENTER
 }
 /*------------------Funcion finaljuego---------------------------*/
 //funcion que se activa cuando el jugador se queda sin energia
@@ -682,7 +704,7 @@ void finalJuego(personaje* usuario)
         scanf("%i", &eleccion);
         if (eleccion == 0 && chk == 0)
         {
-            mostrarPistas(usuario);
+            mostrarPistas(usuario);//funcion que muestar las pistas conseguidas a lo largo del juego
             printf("Quién crees que es asesino de los 3 sospechosos luego de ver tus pistas?\n");
             printf("1.- Esposa de la víctima\n2.- El hermano de la víctima\n3.- La sirvienta de la casa\n");
             chk++;
