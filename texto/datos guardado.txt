@@ -1,0 +1,5 @@
+nombre:cr8
+energia:4
+pis:3
+pistas:Cocina:corcho,Habitacion Principal:pastillas antidepresivas,Garaje:llave manchada
+habitaciones:1,0,1,1,0,0,0
