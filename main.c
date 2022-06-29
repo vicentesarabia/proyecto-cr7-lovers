@@ -13,8 +13,8 @@ typedef struct{
 }habitacion;
 
 typedef struct{
-    char* nombre;//cuchillo
-    char* menu;//revisar utensilios 
+    char* nombre;
+    char* menu;
     char* info;
     int vista;
 }pista;
@@ -32,7 +32,9 @@ int is_equal_string(void * key1, void * key2)
     if(strcmp((char*)key1, (char*)key2)==0) return 1;
     return 0;
 }
-
+/*--------Funcion mostrarinicio-------------------*/
+//funcion que muestra los textos del inicio de la historia
+//presentando el problema
 void mostrarInicio(char* nombre)
 {
     FILE *fichero;
@@ -78,7 +80,8 @@ void mostrarInicio(char* nombre)
     }
     fclose (fichero);
 }
-
+/*------------Funcioninsertarpistas-----------*/
+//inicializar los nodos de pistas conectados a las zonas
 void insertarPistas(Map* grafo)
 {
     FILE* pistas = fopen("texto/pistas.txt", "rt");
@@ -99,7 +102,8 @@ void insertarPistas(Map* grafo)
         pushBack(res->pistas, p);
     }
 }
-
+/*-------------Funcion definirgrafo--------------*/
+//funcion que define el graf conectando todas las zonas al nodo principal living
 void definirGrafo(Map* grafo)
 {
     FILE* zonas = fopen("texto/zonas.txt", "rt");
@@ -108,6 +112,7 @@ void definirGrafo(Map* grafo)
     habitacion* principal;
     while(fgets(aux,1024,zonas))
     {
+        //inicializacion de variables
         habitacion* hab=(habitacion*) malloc (sizeof(habitacion));
         token = strtok(aux,"\n");
         hab->nombre = strdup(token);
@@ -115,13 +120,14 @@ void definirGrafo(Map* grafo)
         hab->pistas = createList();
         hab->caminos = createList();
         habitacion* res;
-        if (strcmp(hab->nombre, "Living") == 0)
+        if (strcmp(hab->nombre, "Living") == 0)//definir nodo principal
         {
             insertMap(grafo, hab->nombre, hab);
             principal = hab;
         }
         else
         {
+            //unir nodos de zonas a al nodo principal
             res = searchMap(grafo, "Living");
             insertMap(grafo, hab->nombre, hab);
             pushBack(res->caminos, hab);
@@ -130,7 +136,7 @@ void definirGrafo(Map* grafo)
         }
     }
     fclose(zonas);
-    insertarPistas(grafo);
+    insertarPistas(grafo);//funcion que inserta a los nodos de las zobnas la pistas como nodos
 }
 /*------------Funcion mostrarZonas--------------*/
 //funcion que muestra en orden las zonas a las que puedes acceder
@@ -143,7 +149,7 @@ void mostrarZonas(Map* grafo)
     int num = 1;
     while(test)
     {
-        if (strcmp(test->nombre, "Banyo de Invitados") == 0)
+        if (strcmp(test->nombre, "Banyo de Invitados") == 0)//este if es para mostrar banyo con ñ
         {
             printf("%i.- Baño de Invitados\n", num);
             num++;
