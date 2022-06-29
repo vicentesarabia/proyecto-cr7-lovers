@@ -695,7 +695,6 @@ void comienzoJuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
     int numero;
-    usuario->energia = 7;//acuerdate sacar esta variable
     
     while(usuario->energia > 0)
     {
@@ -766,57 +765,92 @@ void mostrarPersonajes(FILE* carga)
     char aux[1024];
     char* aux2;
     printf("PERSONAJES DISPONIBLES\n"); 
-    
     while(fgets(aux,1024,carga))
     {
         token = strtok(aux,":");
         aux2 = strdup(token);
-        if(strcmp(aux2,"personaje") == 0)
+        if(strcmp(aux2,"nombre") == 0)
         {
-            printf("Personaje: ");
-            token=strtok(NULL, "\n");
+            printf("Nombre: ");
+            token = strtok(NULL, "\n");
             printf("%s\n", token);
         }  
     }
-
 }
 
-/*
-void cargardatos(FILE* carga,char persona,personaje *usuario)
+void cargardatos(FILE* carga,personaje *usuario, Map* grafo)
 {
     char *token;
-    char aux[100];
+    char aux[1024];
     char* aux2;
-    printf("PERSONAJES DISPONIBLES\n"); 
-    while(fgets(aux,100,carga)!=NULL)
+    while(fgets(aux,1024,carga)!=NULL)
     {
         token=strtok(aux,":");
         aux2=strdup(token);
-        if(strcmp(aux2,"personaje")==0)
+        if(strcmp(aux2,"nombre")==0)
         {
-            
             token=strtok(NULL,"\n");
             aux2=strdup(token);
-            if(strcmp(aux2,persona)==0)
+            printf("%s\n", usuario->nombre);
+            if(strcmp(aux2, usuario->nombre)==0)
             {
-
+                int resatoi;
+                usuario->nombre = strdup(aux2);
+                fgets(aux, 1024, carga);
+                token = strtok(aux, ":");
+                token = strtok(NULL, "\n");
+                usuario->energia = atoi(token);
+                fgets(aux, 1024, carga);
+                token = strtok(aux, ":");
+                token = strtok(NULL, "\n");
+                usuario->pis = atoi(token);
+                fgets(aux, 1024, carga);
+                token = strtok(aux, ":");
+                habitacion * listahab = searchMap(grafo, "Living");
+                while (token)
+                {
+                    habitacion * hab = firstList(listahab->caminos);
+                    token = strtok(NULL, ",");
+                    while (hab)
+                    {
+                        pista* pisaux = firstList(hab->pistas);
+                        if (strcmp(token, pisaux->nombre) == 0)
+                        {
+                            pushBack(usuario->pistas, pisaux);
+                            break;
+                        }
+                        else
+                        {
+                            pisaux = nextList(hab->pistas);
+                            if (strcmp(token, pisaux->nombre) == 0)
+                            {
+                                pushBack(usuario->pistas, pisaux);
+                                break;
+                            }
+                        }
+                        hab = nextList(listahab->caminos);
+                    }
+                    printf("%s--", token);
+                }
             }
         }  
     }
 }
-*/
 
 void cargarPartida(personaje* usuario,Map* lugaresZona)
 {
     FILE* carga;
-    char aux[100] = "texto/guardado.txt";
+    char aux[100] = "texto/datos guardado.txt";
     carga = fopen(aux, "rt");
     definirGrafo(lugaresZona);
     mostrarPersonajes(carga);
     getchar();
     fgets(aux,100,stdin);
+    aux[strcspn(aux, "\n" )] = '\0';
+    usuario->nombre = strdup(aux);
+    usuario->pistas = createList();
     fseek(carga,0,SEEK_SET);
-    //cargardatos(carga,aux,usuario);
+    cargardatos(carga, usuario, lugaresZona);
 }
 
 void mostrarInfo()

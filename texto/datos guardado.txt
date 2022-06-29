@@ -1,5 +1,5 @@
 nombre:cr8
 energia:4
 pis:3
-pistas:corcho,pastillas antidepresivas,llave manchada
-habitaciones:1,0,1,1,0,0,0
+pistas:Corcho,Pastillas Antidepresivas,Llave manchada,
+habitaciones:1,0,1,1,0,0,0,
