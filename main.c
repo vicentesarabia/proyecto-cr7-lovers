@@ -658,12 +658,6 @@ void zonaSotano(personaje* usuario, Map* grafo)
         scanf("%d", &input);
     }
 }
-
-void zona(personaje* usuario, Map* grafo, int eleccion)
-{
-    int input;
-    printf("Donde desea investigar?\n");
-}
 /*----------------Funcion finalrandom------------*/
 //funcion que da un final totalmente al alzar
 void finalRandom()
