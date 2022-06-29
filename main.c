@@ -132,7 +132,9 @@ void definirGrafo(Map* grafo)
     fclose(zonas);
     insertarPistas(grafo);
 }
-
+/*------------Funcion mostrarZonas--------------*/
+//funcion que muestra en orden las zonas a las que puedes acceder
+//segun que numero escojas vas a la zona
 void mostrarZonas(Map* grafo)
 {
     habitacion* a = searchMap(grafo, "Living");
@@ -155,18 +157,19 @@ void mostrarZonas(Map* grafo)
         }
     }
 }
-
+/*--------------Funcion mostrarpistas----------------*/
+//funcion que muestra las pistas que tiene el personaje en medio de la partida
 void mostrarPistas(personaje* usuario)
 {
     printf("\nPistas encontradas\n\n");
     int num = 0;
-    if(usuario->pis == 0)
+    if(usuario->pis == 0)//entra si no a encontrado ninguna pistas
     {
         printf("No has encontrado ninguna pista\n");
         return;
     }
     pista* test = firstList(usuario->pistas);
-    while(test)
+    while(test)//muestra todas la pistas que tiene la lista 
     {
         num++;
         printf("%i.- %s,",num, test->nombre);
@@ -175,6 +178,8 @@ void mostrarPistas(personaje* usuario)
     }
     printf("\n");
 }
+/*-----------Funcion guardarpartida--------------*/
+//funcion que guarda la partida del jugador en el archivo datos guardado
 void guardarpartida(personaje* usuario, Map*grafo)
 {
     FILE* carga = fopen("texto/datos guardado.txt", "r+");
@@ -182,6 +187,7 @@ void guardarpartida(personaje* usuario, Map*grafo)
     char aux[1024];
     pista* pistas;
     char* aux2; 
+    //while que guarda los datos si es que el personaje ya una partida guardada
     while(fgets(aux,1024,carga))
     {
         token = strtok(aux,":");
@@ -224,6 +230,7 @@ void guardarpartida(personaje* usuario, Map*grafo)
             }
         }  
     }
+    //guardar datos de personaje sin una partida guardada
     fprintf(carga,"\n");
     fprintf(carga, "nombre:%s\n", usuario->nombre);
     fprintf(carga, "energia:%i\n", usuario->energia);
@@ -251,7 +258,9 @@ void guardarpartida(personaje* usuario, Map*grafo)
     fprintf(carga, "\n");
     fclose(carga);
 }
-
+/*---------------Funcion menuopciones----------------*/
+//funcion que se ingresa al ingresar un 0 la cual te permite ver las pistas encontradas
+//la opcion de guardar partida y la opcion de salir del
 void menuOpciones(personaje* usuario,Map* grafo)
 {
     int opciones;
@@ -720,7 +729,6 @@ void comienzoJuego(personaje* usuario, Map* grafo)
 {
     int ingreso;
     int numero;
-    usuario->energia = 7;//acuerdate sacar esta variable
     //while que se rompe cuando el usuario se queda sin energia en el juego por lo que se activa el final del juego
     while(usuario->energia > 0)
     {
