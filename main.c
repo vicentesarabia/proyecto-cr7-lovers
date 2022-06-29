@@ -796,7 +796,7 @@ void comienzoJuego(personaje* usuario, Map* grafo)
 //como el grafo de zonas y los datos del personaje
 void iniciarPartida(personaje* usuario,Map* lugaresZona)
 {
-    //mostrarInicio(usuario->nombre); //descomentar funcion para mostrar historia
+    mostrarInicio(usuario->nombre);
     usuario->energia = 7;
     usuario->pistas = createList();
     usuario->pis = 0;
@@ -823,7 +823,7 @@ void mostrarPersonajes(FILE* carga)
     }
 }
 
-void cargardatos(FILE* carga,personaje *usuario, Map* grafo)
+/*void cargardatos(FILE* carga,personaje *usuario, Map* grafo)
 {
     char *token;
     char aux[1024];
@@ -883,7 +883,7 @@ void cargardatos(FILE* carga,personaje *usuario, Map* grafo)
 }
 /*--------------Funcion cargarpartida(no funciona)----------*/
 //funcion que carga los datos del juego de un previo juego
-void cargarPartida(personaje* usuario,Map* lugaresZona)
+/*void cargarPartida(personaje* usuario,Map* lugaresZona)
 {
     FILE* carga;
     char aux[100] = "texto/datos guardado.txt";
@@ -897,7 +897,7 @@ void cargarPartida(personaje* usuario,Map* lugaresZona)
     usuario->pistas = createList();
     fseek(carga,0,SEEK_SET);
     cargardatos(carga, usuario, lugaresZona);
-}
+}*/
 /*---------------------Funcion mostrar info------------------*/
 //funcion que muestra como jugar al juego, la opciones que tiene y como saltar 
 //los comentarios del juego
@@ -928,7 +928,7 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
         iniciarPartida(usuario, lugaresZona);
         break;
     case 2 :
-        cargarPartida(usuario, lugaresZona);
+        //cargarPartida(usuario, lugaresZona);
         break;
     case 3 :
         mostrarInfo();//mostrar informacion de como jugar el juego
