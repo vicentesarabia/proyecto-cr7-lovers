@@ -1,14 +1,14 @@
-Corcho,Revisar utensilios,Te encontraste con un destapacorcho con un corcho humedo casi saliendose de su punta.,Cocina
-Ropa con Manchas,Revisar zona del lavado,Encontraste unas prendas femeninas manchadas de rojo oculta en un canasto de ropa.,Cocina
+Corcho,Revisar utensilios,Te encontraste con un destapacorcho con un corcho húmedo casi saliéndose de su punta.,Cocina
+Ropa con Manchas,Revisar zona del lavado,Encontraste unas prendas femeninas manchadas de rojo ocultas en un canasto de ropa.,Cocina
 Documentos,Revisar bajo la cama,El documento tiene escrito condiciones sobre un seguro de vida pero esta manchado con tinta por lo que no se ven muchos detalles.,Habitacion Principal
-Pastillas Antidepresivas,Revisar velador,Encontraste un frasco con pastillas antidepresivas en un cajon.,Habitacion Principal
-Nada interesante,Revisar muebles,Al revisar los muebles del banyo no encuentras nada que llame tu atencion...,Banyo de Invitados
-Sangre en el desague,Revisar ducha,Observas que en el desague hay rastros de sangre.,Banyo de Invitados
+Pastillas Antidepresivas,Revisar velador,Encontraste un frasco con pastillas antidepresivas en un cajón.,Habitacion Principal
+Nada interesante,Revisar muebles,Al revisar los muebles del baño no encuentras nada que llame tu atención...,Banyo de Invitados
+Sangre en el desague,Revisar ducha,Observas que en el desagüe hay rastros de sangre.,Banyo de Invitados
 Llave manchada,Revisar caja de herramientas,La llave tenia rastros de sangre y cabellos rubios...,Garaje
-Botellas de vino vacias,Revisar almacenaje,Al revisar el almacenaje encuentras varias botellas de vino vacias pero que fueron consumidas haca poco tiempo,Garaje
-Cartas,revisar muebles,Son cartas de amor sin remitente que van dirijidas a la Sra.Buren que estaban en una repisa que al parecer el hijo no alcanza,Habitacion del Hijo
+Botellas de vino vacias,Revisar almacenaje,Al revisar el almacenaje encuentras varias botellas de vino vacías pero que fueron consumidas hace poco tiempo.,Garaje
+Cartas,revisar muebles,Son cartas de amor sin remitente que van dirijidas a la Sra.Buren que estaban en una repisa que al parecer el hijo no alcanza.,Habitacion del Hijo
 Ropa sucia,Revisar bajo la cama,Encontraste ropa sucia del hijo con manchas rojas,Habitacion del Hijo
-Vidrio deforme,Revisar asador,Al revisar el asador entre las cenizas encontraste un frasco de vidrio deformado y quemado con una etiqueta con un texto ilegible por el fuego,Patio Trasero
+Vidrio deforme,Revisar asador,Al revisar el asador entre las cenizas encontraste un frasco de vidrio deformado y quemado con una etiqueta con un texto ilegible por el fuego.,Patio Trasero
 Anillo,Revisar zona de estar,Encuentras un anillo de compromiso que tiene grabado el nombre de la Sra,Patio Trasero
 Nada interesante,Revisar muebles,No encuentras nada interesante para el caso...,Sotano
-Ropa interior,Revisar basureros,Encuentras ropa interior que a simple vista identificas que no pertenecian a la Sra.Buren,Sotano
+Ropa interior,Revisar basureros,Encuentras ropa interior que a simple vista identificas que no pertenecían a la Sra.Buren,Sotano

@@ -37,12 +37,11 @@ void mostrarInicio(char* nombre)
 {
     FILE *fichero;
     char c[1024], respuesta[1];
-    int argc;
     char *argv;
     int check = 0;
 
     argv = "texto/intro1.txt";
-    fichero = fopen (argv, "rb");
+    fichero = fopen(argv, "rb");
     while (fgets(c, 1024, fichero)) {
        printf("%s", c);
        check++;
@@ -53,7 +52,7 @@ void mostrarInicio(char* nombre)
    
     fclose (fichero);
     argv = "texto/intro2.txt";
-    fichero = fopen (argv, "rb");
+    fichero = fopen(argv, "rb");
     while (fgets(c, 1024, fichero)) {
        printf("%s", c);
        check++;
@@ -66,8 +65,8 @@ void mostrarInicio(char* nombre)
             else if (strcmp(respuesta, "n") == 0)
             {
                 fclose (fichero);
-                argv = "texto/malfinal1.txt";
-                fichero = fopen (argv, "rb");
+                argv = "texto/finalinicio.txt";
+                fichero = fopen(argv, "rb");
                 while (fgets(c, 1024, fichero)) {
                     printf("%s", c);
                     getchar();
@@ -142,9 +141,18 @@ void mostrarZonas(Map* grafo)
     int num = 1;
     while(test)
     {
-        printf("%i.- %s\n",num, test->nombre);
-        num++;
-        test = (nextList(a->caminos));
+        if (strcmp(test->nombre, "Banyo de Invitados") == 0)
+        {
+            printf("%i.- Baño de Invitados\n", num);
+            num++;
+            test = (nextList(a->caminos));
+        }
+        else
+        {
+            printf("%i.- %s\n", num, test->nombre);
+            num++;
+            test = (nextList(a->caminos));
+        }
     }
 }
 
@@ -193,7 +201,7 @@ void menuOpciones(personaje* usuario,Map* grafo)
 void zonaHabitacionPri(personaje* usuario, Map* grafo)
 {
     int input;
-    printf("Donde desea investigar?\n");
+    printf("Dónde desea investigar?\n");
     habitacion* a = searchMap(grafo, "Habitacion Principal");
     a->visitado++;
     pista* p = firstList(a->pistas);
@@ -553,34 +561,46 @@ void finalRandom()
     }
 }
 
+void final(int eleccion)
+{
+    FILE *fichero;
+    char c[1024];
+    char *argv;
+    switch (eleccion)
+    {
+        case 1:
+        argv = "texto/finalesposa.txt";
+        break;
+
+        case 2:
+        argv = "texto/finalhermano.txt";
+        break;
+
+        case 3:
+        argv = "texto/finalsirvienta.txt";
+        break;
+    }
+    fichero = fopen(argv, "rb");
+    while (fgets(c, 1024, fichero)) printf("%s", c);
+}
+
 void finalJuego(personaje* usuario)
 {
-    int eleccion = 0;
-    printf("texto que se te acabo el tiempo\n");
-    printf("Quien crees que es asesino de los 3 sospechosos?\n");
-    printf("0.- Ver pistas\n1.- Esposa de la victima\n2.- El hermano de la victima\n3.- La sirvienta de la casa\n");
+    int eleccion = 0, chk = 0;
+    printf("Se te ha acabado el tiempo de investigación!\n");
+    printf("Quién crees que es asesino de los 3 sospechosos?\n");
+    printf("0.- Ver pistas\n1.- Esposa de la víctima\n2.- El hermano de la víctima\n3.- La sirvienta de la casa\n");
     while(eleccion == 0)
     {
         scanf("%i", &eleccion);
-        switch (eleccion)
+        if (eleccion == 0 && chk == 0)
         {
-        case 0:
             mostrarPistas(usuario);
-            printf("Quien crees que es asesino de los 3 sospechosos luego de ver tus pistas?\n");
-            printf("1.- Esposa de la victima\n2.- El hermano de la victima\n3.- La sirvienta de la casa\n");
-            break;
-        case 1:
-            printf("texto final esposa\n");
-            break;
-        case 2:
-            printf("texto final hermano\n");
-            break;
-        case 3:
-            printf("texto final sirvienta\n"); 
-            break;   
-        default:
-            break;
+            printf("Quién crees que es asesino de los 3 sospechosos luego de ver tus pistas?\n");
+            printf("1.- Esposa de la víctima\n2.- El hermano de la víctima\n3.- La sirvienta de la casa\n");
+            chk++;
         }
+        else if (eleccion >= 1 || eleccion <= 3) final(eleccion);
     }
     exit(0);
 }
@@ -593,15 +613,15 @@ void comienzoJuego(personaje* usuario, Map* grafo)
     
     while(usuario->energia > 0)
     {
-        printf("Te quedan %i horas de investigacion\n", usuario->energia);
-        printf("Ingrese el numero de la zona a la cual quiere investigar\n");
+        printf("Te quedan %i horas de investigación\n", usuario->energia);
+        printf("Ingrese el número de la zona a la cual quiere investigar\n");
         mostrarZonas(grafo);
         scanf("%i", &ingreso);
         
         switch (ingreso)
         {
         case 0:
-            printf("menu de opciones\n");
+            printf("Menú de Opciones\n");
             menuOpciones(usuario, grafo);
             break;
         case 1:
@@ -640,7 +660,7 @@ void comienzoJuego(personaje* usuario, Map* grafo)
             zonaSotano(usuario, grafo);
             break;    
         default:
-            printf("Ha ingresado un numero invalido\n");
+            printf("Ha ingresado un número inválido\n");
             break;
         }
     }
@@ -704,7 +724,7 @@ void cargarPartida(personaje* usuario,Map* lugaresZona)
 {
     FILE* carga;
     char aux[100] = "texto/guardado.txt";
-    carga = fopen(aux,"rt");
+    carga = fopen(aux, "rt");
     definirGrafo(lugaresZona);
     mostrarPersonajes(carga);
     getchar();
@@ -716,7 +736,7 @@ void cargarPartida(personaje* usuario,Map* lugaresZona)
 void mostrarInfo()
 {
     printf("Se te van a dar una cierta cantidad de opciones en las cuales tienes que estar constantemente eligiendo segun el\n");
-    printf("numero que tenga la opcion, tambien para poder avanzar los dialogos al inicio y final del juego\n");
+    printf("número que tenga la opción, tambien para poder avanzar los diálogos al inicio y final del juego\n");
 }
 
 void menuInicial(personaje *usuario, Map* lugaresZona)
@@ -724,7 +744,7 @@ void menuInicial(personaje *usuario, Map* lugaresZona)
     char aux[101];
     int opcion;
     printf("Bienvenido a un juego\n");//inicio
-    printf("Menu\n 1.- Nueva Partida\n 2.- Cargar Partida\n 3.- Info del Juego\n");
+    printf("Menú\n 1.- Nueva Partida\n 2.- Cargar Partida\n 3.- Info del Juego\n");
     scanf("%i", &opcion);
     switch (opcion)
     {

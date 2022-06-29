@@ -1,13 +1,17 @@
 # proyecto-CR7-lovers
-ejecutar comando gcc main.c Map.c list.c -o test.exe luego ./test.exe
-para correcto funcionamiento del codigo primero siempre se tiene que utilizar la fucion 1 para que el programa
-tenga algo con que trabajar si quiere finalizar el proceso ponga 0,ingresar los nombres sin espacios ni comas ya que sino s podrian ocurrir problemas.
+Ejecutar comando gcc main.c Map.c list.c -o test.exe para compilar, luego ./test.exe
+Para correcto funcionamiento del código primero siempre se tiene que utilizar la función 1 para que el programa
+tenga algo con que trabajar si quiere finalizar el proceso ponga 0, ingresar los nombres sin espacios ni comas ya que si no podrían ocurrir problemas.
+Los prints contienen tildes y ñs, lineas de comandos no van a mostrar bien estos carácteres a no ser que el dispositivo utilize UTF-8 Unicode.
+Linux no debería tener problemas, en Windows se tendrá que activar el soporte de UTF-8 en las opciones de región.
 
-casos a mejorar
-no hacer otra vez la tarea los ultimos 3 dias, carlos arreglar el promebla con el github ya que tiene problemas con eel visual
+Casos que mejorar:
+No hacer otra vez la tarea los últimos 3 días, Carlos arreglar el problema con el GitHub ya que tiene problemas con el VSCode
 
-puntos de premio/castigo
+Puntos de premio/castigo
 Vicente Sarabia:0
 Nelson Fuentes:0
 Carlos Aguirre:0
 Reinaldo Foitzick:0
+
+
