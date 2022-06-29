@@ -629,7 +629,7 @@ void zona(personaje* usuario, Map* grafo, int eleccion)
 void finalRandom()
 {
     srand(time(NULL));
-    int numero = 15;
+    int numero = rand() % 51;
     if(numero == 15)
     {
         FILE *fichero;
