@@ -629,10 +629,16 @@ void zona(personaje* usuario, Map* grafo, int eleccion)
 void finalRandom()
 {
     srand(time(NULL));
-    int numero = rand() % 51;
+    int numero = 15;
     if(numero == 15)
     {
-        printf("final random");
+        FILE *fichero;
+        char c[1024];
+        char *argv;
+        int check = 0;
+        argv = "texto/finalrandom.txt";
+        fichero = fopen(argv, "rb");
+        while (fgets(c, 1024, fichero)) printf("%s", c);
         exit(0);
     }
 }
